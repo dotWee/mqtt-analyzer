@@ -56,7 +56,7 @@ struct HostsView: View {
 	}
 	
 	func delete(at indexSet: IndexSet) {
-		hostsModel.delete(at: indexSet, persistence: model.persistence)
+		hostsModel.delete(at: indexSet, persistence: model.persistence.hosts)
 	}
 	
 	func createHost() {

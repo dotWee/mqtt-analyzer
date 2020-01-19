@@ -24,10 +24,10 @@ class RootModel: ObservableObject {
 	
 	var sessionController = MQTTSessionController()
 	
-	let persistence: HostsModelPersistence
+	let persistence: Persistence
 	
 	init() {
-		self.persistence = HostsModelPersistence(model: hostsModel)
+		self.persistence = Persistence(model: hostsModel)
 		self.persistence.load()
 		
 		for host in hostsModel.hosts {

@@ -47,7 +47,7 @@ struct EditHostFormModalView: View {
 			original.password = ""
 		}
 		
-		root.persistence.update(original)
+		root.persistence.hosts.update(original)
 	}
 	
 	func cancel() {

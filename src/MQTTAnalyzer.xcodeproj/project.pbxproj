@@ -57,6 +57,10 @@
 		22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E1238149FD00D72BD6 /* StringSizeExtension.swift */; };
 		22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E323814CEF00D72BD6 /* JsonFormatString.swift */; };
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
+		22F6057323CF6E6C00E6338B /* PinnedMessageSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6057223CF6E6C00E6338B /* PinnedMessageSetting.swift */; };
+		22F6057523CF706E00E6338B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6057423CF706E00E6338B /* Persistence.swift */; };
+		22F6057723CF70C400E6338B /* PinnedMessagePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6057623CF70C400E6338B /* PinnedMessagePersistence.swift */; };
+		22F6057923CF713B00E6338B /* PinnedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6057823CF713B00E6338B /* PinnedMessage.swift */; };
 		22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE623C24A5800422BFF /* StringUtils.swift */; };
 		22F8BEE923C31C3B00422BFF /* MQTTSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE823C31C3B00422BFF /* MQTTSession.swift */; };
 		22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEEB23C7871F00422BFF /* LoginDialog.swift */; };
@@ -151,6 +155,10 @@
 		22E469E1238149FD00D72BD6 /* StringSizeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSizeExtension.swift; sourceTree = "<group>"; };
 		22E469E323814CEF00D72BD6 /* JsonFormatString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonFormatString.swift; sourceTree = "<group>"; };
 		22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesModel.swift; sourceTree = "<group>"; };
+		22F6057223CF6E6C00E6338B /* PinnedMessageSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedMessageSetting.swift; sourceTree = "<group>"; };
+		22F6057423CF706E00E6338B /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		22F6057623CF70C400E6338B /* PinnedMessagePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedMessagePersistence.swift; sourceTree = "<group>"; };
+		22F6057823CF713B00E6338B /* PinnedMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedMessage.swift; sourceTree = "<group>"; };
 		22F8BEE623C24A5800422BFF /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		22F8BEE823C31C3B00422BFF /* MQTTSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTSession.swift; sourceTree = "<group>"; };
 		22F8BEEB23C7871F00422BFF /* LoginDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDialog.swift; sourceTree = "<group>"; };
@@ -203,8 +211,11 @@
 			isa = PBXGroup;
 			children = (
 				223EF0052387084D002ADF3E /* HostSetting.swift */,
-				229005CE237E7A8600D5A706 /* HostModelPersistence.swift */,
 				22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */,
+				22F6057223CF6E6C00E6338B /* PinnedMessageSetting.swift */,
+				22F6057423CF706E00E6338B /* Persistence.swift */,
+				229005CE237E7A8600D5A706 /* HostModelPersistence.swift */,
+				22F6057623CF70C400E6338B /* PinnedMessagePersistence.swift */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -446,6 +457,7 @@
 				22C9F73D23BB5E5C00892C4B /* HostModel.swift */,
 				22C9F73F23BB5EA700892C4B /* MessageModel.swift */,
 				22C9F74123BB5EF100892C4B /* TopicModel.swift */,
+				22F6057823CF713B00E6338B /* PinnedMessage.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -721,6 +733,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */,
+				22F6057923CF713B00E6338B /* PinnedMessage.swift in Sources */,
 				22E469E023813BB000D72BD6 /* AttributedUILabel.swift in Sources */,
 				22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
@@ -728,7 +741,10 @@
 				22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */,
 				22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */,
 				228104982381796B00112F24 /* HostCellView.swift in Sources */,
+				22F6057323CF6E6C00E6338B /* PinnedMessageSetting.swift in Sources */,
+				22F6057523CF706E00E6338B /* Persistence.swift in Sources */,
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
+				22F6057723CF70C400E6338B /* PinnedMessagePersistence.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
 				22C9F74223BB5EF100892C4B /* TopicModel.swift in Sources */,

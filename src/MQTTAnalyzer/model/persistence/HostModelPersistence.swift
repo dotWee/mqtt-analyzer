@@ -15,7 +15,7 @@ class HostsModelPersistence {
 	let realm: Realm
 	var token: NotificationToken?
 	
-	init(model: HostsModel) {
+	init(model: HostsModel, realm: Realm) {
 		self.model = model
 		self.realm = try! Realm()
 	}

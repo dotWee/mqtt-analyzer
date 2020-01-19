@@ -64,7 +64,7 @@ struct NewHostFormModalView: View {
 		
 		hosts.hosts.append(newHost)
 		
-		root.persistence.create(newHost)
+		root.persistence.hosts.create(newHost)
 		
 		closeHandler()
 	}
