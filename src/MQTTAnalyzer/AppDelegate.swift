@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var syncEngine: SyncEngine?
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+		
+		RealmConfiguration.initConfig()
 		DataMigration.initMigration()
 		syncEngine = SyncEngine(objects: [
 				SyncObject<HostSetting>()
