@@ -46,6 +46,7 @@
 		22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */; };
 		22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
+		22C7F0AF240BA83300534880 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C7F0AE240BA83300534880 /* RealmConfiguration.swift */; };
 		22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F72E23B7486E00892C4B /* .swiftlint.yml */; };
 		22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */; };
 		22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MessageTextView.swift */; };
@@ -152,6 +153,7 @@
 		22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostFormModalView.swift; sourceTree = "<group>"; };
 		22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSettingExamples.swift; sourceTree = "<group>"; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		22C7F0AE240BA83300534880 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		22C9F72E23B7486E00892C4B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishMessageFormView.swift; sourceTree = "<group>"; };
 		22C9F73623B79A1300892C4B /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				229005CE237E7A8600D5A706 /* HostModelPersistence.swift */,
 				22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */,
 				22F6057A23D4911000E6338B /* DataMigration.swift */,
+				22C7F0AE240BA83300534880 /* RealmConfiguration.swift */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */,
 				22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */,
+				22C7F0AF240BA83300534880 /* RealmConfiguration.swift in Sources */,
 				228104982381796B00112F24 /* HostCellView.swift in Sources */,
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */,
