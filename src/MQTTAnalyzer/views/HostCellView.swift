@@ -79,6 +79,7 @@ struct HostCellView: View {
 					clientImpl: self.host.clientImpl)
 			}
 		})
+		.accessibility(identifier: "host.\(host.alias)")
 	}
 	
 	func editHost() {

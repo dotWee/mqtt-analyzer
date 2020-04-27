@@ -33,6 +33,7 @@ struct ServerFormView: View {
 				Spacer()
 				
 				TextField("optional", text: $host.alias)
+					.accessibility(identifier: "add.server.alias")
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
 					.font(.body)
@@ -46,6 +47,7 @@ struct ServerFormView: View {
 				Spacer()
 
 				TextField("ip address / name", text: $host.hostname)
+					.accessibility(identifier: "add.server.host")
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
