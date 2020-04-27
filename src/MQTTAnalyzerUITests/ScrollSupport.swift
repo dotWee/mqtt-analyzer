@@ -86,17 +86,6 @@ extension XCUIElement {
     }
 }
 
-extension XCTestCase {
-    func scrollToElement(_ element: XCUIElement) {
-        while !element.isVisible() {
-            let app = XCUIApplication()
-            let startCoord = app.tables.element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
-            let endCoord = startCoord.withOffset(CGVector(dx: 0.0, dy: -262))
-            startCoord.press(forDuration: 0.01, thenDragTo: endCoord)
-        }
-    }
-}
-
 extension XCUIElement {
     func clearText(andReplaceWith newText: String? = nil) {
         tap()

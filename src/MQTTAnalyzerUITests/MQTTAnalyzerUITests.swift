@@ -45,6 +45,41 @@ class MQTTAnalyzerUITests: XCTestCase {
 		app.buttons["Cancel"].tap()
     }
 	
+	func createSettings(setting: HostFormModel, authType: HostAuthenticationType) {
+		let form = app.otherElements["edit.host.form"].firstMatch
+		
+		selectTextField(on: form, id: "add.server.alias")
+			.typeText(setting.alias)
+
+		selectTextField(on: form, id: "add.server.host")
+			.typeText(setting.hostname)
+
+		if authType == .usernamePassword {
+			_ = selectButton(on: form, id: "User/password")
+	
+			selectTextField(on: form, id: "add.server.auth.username")
+				.typeText(setting.username)
+
+			selectSecureTextField(on: form, id: "add.server.auth.password")
+				.typeText(setting.password)
+		}
+		
+		if !setting.topic.elementsEqual("#") {
+			let topic = selectTextField(on: form, id: "add.server.topic")
+			topic.clearText()
+			topic.typeText(setting.topic)
+		}
+		
+	}
+	
+	func storeNewSetting(setting: HostFormModel, authType: HostAuthenticationType) {
+		app.buttons["add.server"].tap()
+		
+		createSettings(setting: setting, authType: authType)
+		
+		_ = selectButton(on: app, id: "Save")
+	}
+	
 	func testSmokeTest() {
 		app.launch()
 		let id = String(UUID().uuidString.prefix(10))
@@ -52,37 +87,37 @@ class MQTTAnalyzerUITests: XCTestCase {
 		let identifier = "host.\(id)"
 		
 		XCTAssertFalse(app.buttons[identifier].exists)
-		app.buttons["add.server"].tap()
 		
-		let form = app.otherElements["edit.host.form"].firstMatch
+//		storeNewSetting(setting: HostFormModel (
+//			alias: id,
+//			hostname: "192.168.3.3",
+//			username: "admin",
+//			password: "password"
+//		), authType: .usernamePassword)
 		
-		type(parent: form, to: "add.server.alias", id)
-		type(parent: form, to: "add.server.host", "192.168.3.3")
+		let setting = HostFormModel(
+			alias: id,
+			hostname: "test.mosquitto.org",
+			topic: "de/rnd7/mqttanalyzer/integration/test/#"
+		)
 		
-		form.swipeUp()
+		storeNewSetting(setting: setting, authType: .none)
 		
-		let button = app.buttons["User/password"].firstMatch
-		scrollToElement(button)
-//		XCTAssertTrue(button.exists)
-//		app.staticTexts["Server"].firstMatch
-//		.swipeOnIt(.up, untilHittable: button)
-		button.tap()
+		_ = selectButton(on: app, id: identifier)
 		
-		type(parent: form, to: "add.server.auth.username", "admin")
-		type(parent: form, to: "add.server.auth.password", "password", "Authentication")
-		app.buttons["Save"].tap()
-		
-		app.buttons[identifier].tap()
 		app.buttons["publish.message"].tap()
-		type(parent: app, to: "publish.message.topic", "dummy/topic")
+		
+		selectTextField(on: app, id: "publish.message.topic")
+			.typeText("\(setting.topic.pathUp())/dummy/topic")
+		
 		typeToTextView("some example message")
 		app.buttons["Publish"].tap()
 		
-		let topic = app.buttons["topic.dummy/topic"]
-		XCTAssertTrue(topic.waitForExistence(timeout: 2))
+		let topic = app.buttons["topic.\(setting.topic.pathUp())/dummy/topic"]
+		_ = topic.waitForExistence(timeout: 1)
 		topic.tap()
 		
-		app.buttons["#"].tap()
+		app.buttons[setting.topic].tap()
 		app.buttons["Servers"].tap()
 		app.buttons[identifier].press(forDuration: 1)
 		app.buttons["Disconnect"].tap()
@@ -91,22 +126,44 @@ class MQTTAnalyzerUITests: XCTestCase {
 		XCTAssertFalse(app.buttons[identifier].exists)
 	}
 	
-	func type(parent: XCUIElement, to id: String, _ text: String, _ swipeControlName: String? = nil) {
+	func selectButton(on parent: XCUIElement, id: String) -> XCUIElement {
+		let field = parent.buttons[id].firstMatch
+		select(on: parent, element: field)
+		field.tap()
+		return field
+	}
+	
+	func selectTextField(on parent: XCUIElement, id: String) -> XCUIElement {
+		let field = parent.textFields[id].firstMatch
+		select(on: parent, element: field)
+		field.tap()
+		return field
+	}
+	
+	func selectSecureTextField(on parent: XCUIElement, id: String) -> XCUIElement {
+		let field = parent.secureTextFields[id].firstMatch
+		select(on: parent, element: field)
+		field.tap()
+		return field
+	}
+	
+	func select(on parent: XCUIElement, element: XCUIElement) {
+		parent.swipeOnIt(.up, untilExists: element)
+	}
+	
+	func type(parent: XCUIElement, to id: String, _ text: String, _ swipeControl: XCUIElement? = nil) {
 		var field = parent.textFields[id].firstMatch
 		if !field.exists {
 			field = parent.secureTextFields[id].firstMatch
 		}
 		
-		if swipeControlName != nil {
-			parent.staticTexts[swipeControlName!].firstMatch
-			.swipeOnIt(.up, untilHittable: field)
+		if swipeControl != nil {
+			swipeControl!.firstMatch
+			.swipeOnIt(.up, untilExists: field)
 		}
-		
-//		scrollToElement(field)
 		
 		field.tap()
 		field.typeText(text)
-//		field.clearText(andReplaceWith: text)
 	}
 	
 	func typeToTextView(_ text: String) {

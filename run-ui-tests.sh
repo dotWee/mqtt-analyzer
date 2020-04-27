@@ -3,9 +3,9 @@ cd src
 OS="13.4.1"
 
 declare -a devices=(
+    "iPhone 11"
     "iPad Pro (11-inch)"
     "iPad Pro (9.7-inch)"
-    "iPhone 11"
     "iPhone 11 Pro"
     "iPhone 8"
     "iPhone SE (1st generation)"

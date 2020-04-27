@@ -21,6 +21,7 @@ struct TopicFormView: View {
 				Spacer()
 				
 				TextField("#", text: $host.topic)
+					.accessibility(identifier: "add.server.topic")
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
