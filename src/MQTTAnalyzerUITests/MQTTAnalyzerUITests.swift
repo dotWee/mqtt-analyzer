@@ -107,13 +107,15 @@ class MQTTAnalyzerUITests: XCTestCase {
 		
 		app.buttons["publish.message"].tap()
 		
+		let topicId = String(UUID().uuidString.prefix(10))
+		
 		selectTextField(on: app, id: "publish.message.topic")
-			.typeText("\(setting.topic.pathUp())/dummy/topic")
+			.typeText("\(setting.topic.pathUp())/\(topicId)")
 		
 		typeToTextView("some example message")
 		app.buttons["Publish"].tap()
 		
-		let topic = app.buttons["topic.\(setting.topic.pathUp())/dummy/topic"]
+		let topic = app.buttons["topic.\(setting.topic.pathUp())/\(topicId)"]
 		_ = topic.waitForExistence(timeout: 1)
 		topic.tap()
 		
@@ -127,28 +129,31 @@ class MQTTAnalyzerUITests: XCTestCase {
 	}
 	
 	func selectButton(on parent: XCUIElement, id: String) -> XCUIElement {
-		let field = parent.buttons[id].firstMatch
+		let field = parent.buttons[id]
 		select(on: parent, element: field)
 		field.tap()
 		return field
 	}
 	
 	func selectTextField(on parent: XCUIElement, id: String) -> XCUIElement {
-		let field = parent.textFields[id].firstMatch
-		select(on: parent, element: field)
+		let field = parent.textFields[id]
+//		app.scrollToElement(element: field)
+
+		app.swipeOnIt(.up, untilVisible: field)
+		
 		field.tap()
 		return field
 	}
 	
 	func selectSecureTextField(on parent: XCUIElement, id: String) -> XCUIElement {
-		let field = parent.secureTextFields[id].firstMatch
+		let field = parent.secureTextFields[id]
 		select(on: parent, element: field)
 		field.tap()
 		return field
 	}
 	
 	func select(on parent: XCUIElement, element: XCUIElement) {
-		parent.swipeOnIt(.up, untilExists: element)
+		app.swipeOnIt(.up, untilHittable: element)
 	}
 	
 	func type(parent: XCUIElement, to id: String, _ text: String, _ swipeControl: XCUIElement? = nil) {

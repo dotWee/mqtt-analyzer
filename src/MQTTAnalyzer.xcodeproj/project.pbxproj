@@ -54,6 +54,8 @@
 		2291424923BF6ECE0086C251 /* KeyboardResponsiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424823BF6ECE0086C251 /* KeyboardResponsiveModifier.swift */; };
 		2291424C23BF78000086C251 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424B23BF78000086C251 /* AboutView.swift */; };
 		2291424F23C0C0370086C251 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424E23C0C0370086C251 /* MenuButton.swift */; };
+		22A07272245C43E400D22A34 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A07271245C43E300D22A34 /* SnapshotHelper.swift */; };
+		22A07274245C447300D22A34 /* TakeScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A07273245C447300D22A34 /* TakeScreenshots.swift */; };
 		22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */; };
 		22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */; };
 		22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */; };
@@ -180,6 +182,8 @@
 		2291424E23C0C0370086C251 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22A07271245C43E300D22A34 /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		22A07273245C447300D22A34 /* TakeScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeScreenshots.swift; sourceTree = "<group>"; };
 		22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernamePasswordAuthenticationView.swift; sourceTree = "<group>"; };
 		22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateAuthenticationView.swift; sourceTree = "<group>"; };
 		22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFilePickerView.swift; sourceTree = "<group>"; };
@@ -538,6 +542,8 @@
 		22C7F0D12416A16600534880 /* MQTTAnalyzerUITests */ = {
 			isa = PBXGroup;
 			children = (
+				22A07271245C43E300D22A34 /* SnapshotHelper.swift */,
+				22A07273245C447300D22A34 /* TakeScreenshots.swift */,
 				22C7F0D22416A16600534880 /* MQTTAnalyzerUITests.swift */,
 				22C7F0D42416A16600534880 /* Info.plist */,
 				22563F5E24561C20008E6D3B /* ScrollSupport.swift */,
@@ -952,6 +958,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22A07272245C43E400D22A34 /* SnapshotHelper.swift in Sources */,
+				22A07274245C447300D22A34 /* TakeScreenshots.swift in Sources */,
 				22563F632457478A008E6D3B /* StringUtils.swift in Sources */,
 				22563F6124571B8A008E6D3B /* Model.swift in Sources */,
 				22563F5F24561C20008E6D3B /* ScrollSupport.swift in Sources */,

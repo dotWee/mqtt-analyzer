@@ -16,8 +16,8 @@ enum TestSwipeDirections {
 }
 
 fileprivate let min = 0.05
-fileprivate let mid = 0.5
-fileprivate let max = 0.95
+fileprivate let mid = 0.25
+fileprivate let max = 0.5
 
 fileprivate let leftPoint = CGVector(dx: min, dy: mid)
 fileprivate let rightPoint = CGVector(dx: max, dy: mid)
@@ -40,6 +40,16 @@ extension TestSwipeDirections {
             return (begin: leftPoint,
                     end:   rightPoint)
         }
+    }
+}
+
+extension XCUIElement {
+    func isVisible() -> Bool {
+        if !self.exists || !self.isHittable || self.frame.isEmpty {
+            return false
+        }
+
+        return XCUIApplication().windows.element(boundBy: 0).frame.contains(self.frame)
     }
 }
 
@@ -74,25 +84,29 @@ extension XCUIElement {
                                       untilExists element: XCUIElement) -> Bool {
         return swipeOnIt(direction, swipeLimit: swipeLimit, swipeDuration: swipeDuration) { element.exists }
     }
+	
+    @discardableResult func swipeOnIt(_ direction: TestSwipeDirections,
+                                      swipeLimit: Int = 6,
+                                      swipeDuration: TimeInterval = 1.0,
+                                      untilVisible element: XCUIElement) -> Bool {
+        return swipeOnIt(direction, swipeLimit: swipeLimit, swipeDuration: swipeDuration) { element.isVisible() }
+    }
 }
 
 extension XCUIElement {
-    func isVisible() -> Bool {
-        if !self.exists || !self.isHittable || self.frame.isEmpty {
-            return false
+    func scrollToElement(element: XCUIElement) {
+        while !element.isVisible() {
+            swipeUp()
         }
-
-        return XCUIApplication().windows.element(boundBy: 0).frame.contains(self.frame)
     }
 }
 
 extension XCUIElement {
     func clearText(andReplaceWith newText: String? = nil) {
-        tap()
-		
+	
 		if let v = value as? String {
 			if !v.isEmpty {
-				press(forDuration: 1.0)
+				tap()
 				var select = XCUIApplication().menuItems["Select All"]
 
 				if !select.exists {
@@ -107,9 +121,10 @@ extension XCUIElement {
 				}
 			}
 		}
-
-        if let newVal = newText {
+		
+		if let newVal = newText {
             typeText(newVal)
         }
-    }
+	}
+	
 }
