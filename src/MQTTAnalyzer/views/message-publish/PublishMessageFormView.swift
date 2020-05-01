@@ -218,6 +218,7 @@ struct PublishMessageFormView: View {
 		Form {
 			Section(header: Text("Topic")) {
 				TextField("#", text: $message.topic)
+					.accessibility(identifier: "publish.message.topic")
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
 					.font(.body)

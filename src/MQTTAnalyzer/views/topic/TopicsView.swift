@@ -73,6 +73,7 @@ struct TopicsView: View {
 					}
 					.font(.system(size: 22))
 					.buttonStyle(ActionStyleL25())
+					.accessibility(identifier: "publish.message")
 					
 					Button(action: pauseConnection) {
 						Image(systemName: host.pause ? "play.fill" : "pause.fill")

@@ -39,6 +39,7 @@ struct EditHostFormView: View {
 				}
 			}
 		}.keyboardResponsive()
+		.accessibility(identifier: "edit.host.form")
 	}
 }
 

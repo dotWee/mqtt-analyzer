@@ -44,7 +44,7 @@ struct TopicCellView: View {
 				MenuButton(title: "Publish message again", systemImage: "paperplane.fill", action: publish)
 				MenuButton(title: "Publish new message", systemImage: "paperplane.fill", action: publishManually)
 			}
-		}
+		}.accessibility(identifier: "topic.\(messages.topic.name)")
 	}
 	
 	func publish() {

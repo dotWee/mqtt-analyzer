@@ -22,6 +22,7 @@ struct UsernamePasswordAuthenticationView: View {
 				Spacer()
 			
 				TextField("username", text: $host.username)
+					.accessibility(identifier: "add.server.auth.username")
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
 					.multilineTextAlignment(.trailing)
@@ -35,6 +36,7 @@ struct UsernamePasswordAuthenticationView: View {
 					Spacer()
 				
 				SecureField("password", text: $host.password)
+					.accessibility(identifier: "add.server.auth.password")
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
 					.multilineTextAlignment(.trailing)

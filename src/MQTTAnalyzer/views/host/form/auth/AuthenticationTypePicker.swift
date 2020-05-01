@@ -25,8 +25,11 @@ struct AuthenticationTypePicker: View {
 	var body: some View {
 		Picker(selection: $type, label: Text("Auth")) {
 			Text("None").tag(HostAuthenticationType.none)
+				.accessibility(identifier: "add.server.auth.none")
 			Text("User/password").tag(HostAuthenticationType.usernamePassword)
+				.accessibility(identifier: "add.server.auth.userpassword")
 			Text("Certificate").tag(HostAuthenticationType.certificate)
+				.accessibility(identifier: "add.server.auth.certificate")
 		}.pickerStyle(SegmentedPickerStyle())
 	}
 }
