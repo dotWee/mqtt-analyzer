@@ -9,22 +9,6 @@
 import Foundation
 import SwiftUI
 
-enum HostAuthenticationType {
-	case none
-	case usernamePassword
-	case certificate
-}
-
-enum HostProtocol {
-	case mqtt
-	case websocket
-}
-
-enum HostClientImplType {
-	case moscapsule
-	case cocoamqtt
-}
-
 extension Host: Hashable {
 	static func == (lhs: Host, rhs: Host) -> Bool {
 		return lhs.ID == rhs.ID

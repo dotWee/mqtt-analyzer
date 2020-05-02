@@ -275,6 +275,7 @@ struct PublishMessageFormPlainTextView: View {
 			.autocapitalization(.none)
 			.font(.system(.body, design: .monospaced))
 			.frame(height: 250)
+			.accessibility(hidden: true)
 		}
 	}
 }

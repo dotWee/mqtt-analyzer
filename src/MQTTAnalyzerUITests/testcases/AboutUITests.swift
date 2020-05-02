@@ -1,45 +1,29 @@
 //
-//  MQTTAnalyzerUITests.swift
+//  SettingsTests.swift
 //  MQTTAnalyzerUITests
 //
-//  Created by Philipp Arndt on 01.05.20.
+//  Created by Philipp Arndt on 2020-05-02.
 //  Copyright © 2020 Philipp Arndt. All rights reserved.
 //
 
 import XCTest
 
-class TakeScreenshots: XCTestCase {
+class AboutUITests: XCTestCase {
 	var app: MQTTAnalyzer!
-
+	
     override func setUp() {
         continueAfterFailure = false
 		app = MQTTAnalyzer()
-		setupSnapshot(app.app)
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 	
-	func testMain() {
+    func testAbout() {
 		app.launch()
 		
-		snapshot("Main")
-	}
-	
-	func testAbout() {
-		app.launch()
-		
-		app.openAbout()
-		snapshot("About")
-		app.closeAbout()
-	}
-	
-	func testSettings() {
-		app.launch()
-		
-		app.openSettings()
-		snapshot("Settings")
-		app.cancelSettings()
-	}
+		app.app.buttons["About"].tap()
+		app.app.buttons["Close"].tap()
+    }
 }
