@@ -15,20 +15,21 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
+### screenshots
+```
+fastlane screenshots
+```
+
 ### tests
 ```
 fastlane tests
 ```
 
-
-----
-
-## iOS
-### ios screenshots
+### coverage
 ```
-fastlane ios screenshots
+fastlane coverage
 ```
-Generate new localized screenshots
+
 
 ----
 

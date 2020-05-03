@@ -41,3 +41,13 @@ lane :tests do
   ],
   scheme: "MQTTAnalyzer")
 end
+
+
+lane :coverage do
+  run_tests(devices: [
+    "iPhone 11"
+  ],
+  code_coverage: true,
+  open_report: true,
+  scheme: "MQTTAnalyzer")
+end

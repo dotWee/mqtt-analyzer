@@ -51,8 +51,8 @@ class SmokeUITests: XCTestCase {
 		app.selectTextField(on: app.app, id: "publish.message.topic")
 			.typeText("\(setting.topic.pathUp())/\(topicId)")
 		
-		app.selectTextView(id: "message.text")
-			.pasteText("This is my topic")
+//		app.selectTextView(id: "message.text")
+//			.pasteText("This is my topic")
 
 		app.app.buttons["Publish"].tap()
 		

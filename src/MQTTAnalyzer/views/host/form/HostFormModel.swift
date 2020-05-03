@@ -33,4 +33,3 @@ struct HostFormModel {
 	var ssl: Bool = false
 	var untrustedSSL: Bool = false
 }
-

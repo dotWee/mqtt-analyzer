@@ -30,6 +30,15 @@
       enableAddressSanitizer = "YES"
       enableASanStackUseAfterReturn = "YES"
       codeCoverageEnabled = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "xcrun simctl boot &quot;$TARGET_DEVICE_IDENTIFIER&quot;&#10;&#10;simctl status_bar &quot;$TARGET_DEVICE_IDENTIFIER&quot; override \&#10;--time 9:41 \&#10;--dataNetwork wifi \&#10;--wifiMode active \&#10;--wifiBars 3 \&#10;--cellularMode active \&#10;--cellularBars 4 \&#10;--batteryState charged \&#10;--batteryLevel 100&#10;">
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <AdditionalOptions>
          <AdditionalOption
             key = "NSZombieEnabled"
@@ -57,7 +66,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2253F8F522C8C008007E35A2"
+               BlueprintIdentifier = "22C7F0CF2416A16600534880"
                BuildableName = "MQTTAnalyzerUITests.xctest"
                BlueprintName = "MQTTAnalyzerUITests"
                ReferencedContainer = "container:MQTTAnalyzer.xcodeproj">
