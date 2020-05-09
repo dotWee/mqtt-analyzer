@@ -1,0 +1,42 @@
+{
+    "device_frame_version": "latest",
+    "default": {
+      "keyword": {
+        "#font": "./fonts/MyFont-Rg.otf",
+        "color": "#FFFFFF"
+      },
+      "title": {
+        "#font": "./fonts/MyFont-Th.otf",
+        "color": "#CCCCCC"
+      },
+      "background": "./background.jpg",
+      "padding": 50,
+      "show_complete_frame": true,
+      "stack_title" : false,
+      "title_below_image": false,
+      "frame": "WHITE",
+      "use_platform": "IOS"
+    },
+  
+    "data": [
+      {
+        "filter": "Main",
+        "keyword": {
+          "#color": "#d21559"
+        }
+      },
+      {
+        "filter": "Settings",
+        "keyword": {
+          "#color": "#feb909"
+        },
+        "frame": "ROSE_GOLD"
+      },
+      {
+        "filter": "About",
+        "keyword": {
+          "#color": "#aa4dbc"
+        }
+      }
+    ]
+  }
