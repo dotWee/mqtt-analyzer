@@ -37,12 +37,21 @@ class MqttClientCocoaMQTT: MqttClient {
 		self.host = host
 	}
 	
+	func sanitizeBasePath(_ basePath: String) -> String {
+		if basePath.starts(with: "/") {
+			return basePath
+		}
+		else {
+			return "/\(basePath)"
+		}
+	}
+	
 	func connect() {
 		initConnect()
 		
 		let mqtt: CocoaMQTT
 		if host.protocolMethod == .websocket {
-			let websocket = CocoaMQTTWebSocket(uri: self.host.basePath)
+			let websocket = CocoaMQTTWebSocket(uri: sanitizeBasePath(self.host.basePath))
 			mqtt = CocoaMQTT(clientID: host.computeClientID,
 								  host: host.hostname,
 								  port: host.port,
@@ -234,15 +243,24 @@ class MqttClientCocoaMQTT: MqttClient {
 		mqtt?.subscribe(host.topic, qos: convertQOS(qos: Int32(host.qos)))
 	}
 	
+	func extractErrorMessage(error: Error) -> String {
+		if (error as NSError).code == 8 {
+			return "Invalid hostname.\n\(error.localizedDescription)"
+		}
+		else {
+			return error.localizedDescription
+		}
+	}
+	
 	func didDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topic)")
 
 		if err != nil {
-			connectionState.message = err!.localizedDescription
+			connectionState.message = extractErrorMessage(error: err!)
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
-				self.host.connectionMessage = err!.localizedDescription
+				self.host.connectionMessage = self.connectionState.message
 			}
 		}
 		
