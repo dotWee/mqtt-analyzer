@@ -32,4 +32,8 @@ struct HostFormModel {
 	
 	var ssl: Bool = false
 	var untrustedSSL: Bool = false
+	
+	var protocolMethod: HostProtocol = .mqtt
+	var authType: HostAuthenticationType = .none
+	var clientImpl: HostClientImplType = .cocoamqtt
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-func copyHost(target: Host, source host: HostFormModel, _ auth: HostAuthenticationType, _ connectionMethod: HostProtocol, _ clientImpl: HostClientImplType) -> Host? {
+func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	let newHostname = HostFormValidator.validateHostname(name: host.hostname)
 	let port = HostFormValidator.validatePort(port: host.port)
 	
@@ -19,13 +19,12 @@ func copyHost(target: Host, source host: HostFormModel, _ auth: HostAuthenticati
 	target.alias = host.alias
 	target.hostname = newHostname!
 	target.qos = host.qos
-	target.auth = auth
+	target.auth = host.authType
 	target.port = UInt16(port!)
 	target.topic = host.topic
 	target.clientID = host.clientID
-	target.auth = auth
 	target.basePath = host.basePath
-	target.protocolMethod = connectionMethod
+	target.protocolMethod = host.protocolMethod
 	target.ssl = host.ssl
 	target.untrustedSSL = host.ssl && host.untrustedSSL
 	
@@ -33,14 +32,14 @@ func copyHost(target: Host, source host: HostFormModel, _ auth: HostAuthenticati
 		target.clientImpl = .cocoamqtt
 	}
 	else {
-		target.clientImpl = clientImpl
+		target.clientImpl = host.clientImpl
 	}
 
-	if auth == .usernamePassword {
+	if host.authType == .usernamePassword {
 		target.username = host.username
 		target.password = host.password
 	}
-	else if auth == .certificate {
+	else if host.authType == .certificate {
 		target.certServerCA = host.certServerCA
 		target.certClient = host.certClient
 		target.certClientKey = host.certClientKey
@@ -67,6 +66,9 @@ func transformHost(source host: Host) -> HostFormModel {
 						 limitTopic: "\(host.limitTopic)",
 						 limitMessagesBatch: "\(host.limitMessagesBatch)",
 						 ssl: host.ssl,
-						 untrustedSSL: host.untrustedSSL
+						 untrustedSSL: host.untrustedSSL,
+						 protocolMethod: host.protocolMethod,
+						 authType: host.auth,
+						 clientImpl: host.clientImpl
 						)
 }
