@@ -21,13 +21,6 @@ class SmokeUITests: XCTestCase {
     }
 	
 	func testRoundtripMqtt() {
-//		storeNewSetting(setting: HostFormModel (
-//			alias: id,
-//			hostname: "192.168.3.3",
-//			username: "admin",
-//			password: "password"
-//		), authType: .usernamePassword)
-		
 		testRoundtrip(with: HostFormModel(
 			alias: app.uid(),
 			hostname: "test.mosquitto.org",
@@ -55,8 +48,7 @@ class SmokeUITests: XCTestCase {
 	}
 	
 	func testRoundtripWebsocket() {
-//		XCUIDevice.shared.orientation = .portrait
-		XCUIDevice.shared.orientation = .landscapeLeft
+		XCUIDevice.shared.orientation = .portrait
 		
 		testRoundtrip(with: HostFormModel(
 			alias: app.uid(),
