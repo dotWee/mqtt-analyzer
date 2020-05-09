@@ -40,7 +40,7 @@ class SettingsUITests: XCTestCase {
 			app.storeNewSetting(setting: HostFormModel(
 				alias: id,
 				hostname: "svr"
-			), authType: .none)
+			), authType: .none, prot: .mqtt)
 			
 			XCTAssert(app.app.buttons["host.\(id)"].waitForExistence(timeout: 1))
 		}

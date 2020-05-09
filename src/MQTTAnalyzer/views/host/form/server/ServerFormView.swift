@@ -62,6 +62,7 @@ struct ServerFormView: View {
 				Spacer()
 
 				TextField("1883", text: $host.port)
+					.accessibility(identifier: "add.server.port")
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
 					.font(.body)
@@ -96,12 +97,14 @@ struct ServerFormView: View {
 				Text("SSL")
 					.font(.headline)
 			}
+			.accessibility(identifier: "add.server.ssl")
 
 			if host.ssl {
 				Toggle(isOn: $host.untrustedSSL) {
 					Text("Allow untrusted")
 						.font(.headline)
 				}
+				.accessibility(identifier: "add.server.untrustedssl")
 			}
 		}
 	}

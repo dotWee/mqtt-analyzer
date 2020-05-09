@@ -27,13 +27,13 @@ extension MQTTAnalyzer {
 		app.buttons["Save"].tap()
 	}
 	
-	func storeNewSetting(setting: HostFormModel, authType: HostAuthenticationType) {
+	func storeNewSetting(setting: HostFormModel, authType: HostAuthenticationType, prot: HostProtocol) {
 		openSettings()
-		createSettings(setting: setting, authType: authType)
+		createSettings(setting: setting, authType: authType, prot: prot)
 		saveSettings()
 	}
 	
-	func createSettings(setting: HostFormModel, authType: HostAuthenticationType) {
+	func createSettings(setting: HostFormModel, authType: HostAuthenticationType, prot: HostProtocol) {
 		let form = app.otherElements["edit.host.form"].firstMatch
 		
 		selectTextField(on: form, id: "add.server.alias")
@@ -42,6 +42,27 @@ extension MQTTAnalyzer {
 		selectTextField(on: form, id: "add.server.host")
 			.typeText(setting.hostname)
 
+		if setting.port != "1883" {
+			let port = selectTextField(on: form, id: "add.server.port")
+			port.clearText()
+			port.typeText(setting.port)
+		}
+		
+		if prot == .websocket {
+			_ = selectButton(on: form, id: "Websocket")
+		}
+		
+		if setting.ssl {
+			selectSwitch(on: form, id: "add.server.ssl")
+			.tap()
+			
+			if setting.untrustedSSL {
+				selectSwitch(on: form, id: "add.server.untrustedssl")
+				.tap()
+				
+			}
+		}
+		
 		if authType == .usernamePassword {
 			_ = selectButton(on: form, id: "User/password")
 	

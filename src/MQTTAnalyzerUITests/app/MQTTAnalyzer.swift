@@ -38,6 +38,13 @@ class MQTTAnalyzer {
 		return field
 	}
 	
+	func selectSwitch(on parent: XCUIElement, id: String) -> XCUIElement {
+		let field = parent.switches[id]
+		
+		app.swipeOnIt(.up, untilVisible: field)
+		return field
+	}
+	
 	func selectTextField(on parent: XCUIElement, id: String) -> XCUIElement {
 		let field = parent.textFields[id]
 

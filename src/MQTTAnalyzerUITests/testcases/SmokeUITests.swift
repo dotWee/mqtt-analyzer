@@ -20,13 +20,7 @@ class SmokeUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 	
-	func testSmokeTest() {
-		app.launch()
-		let id = app.uid()
-		
-		let identifier = "host.\(id)"
-		XCTAssertFalse(app.app.buttons[identifier].exists)
-		
+	func testRoundtripMqtt() {
 //		storeNewSetting(setting: HostFormModel (
 //			alias: id,
 //			hostname: "192.168.3.3",
@@ -34,13 +28,51 @@ class SmokeUITests: XCTestCase {
 //			password: "password"
 //		), authType: .usernamePassword)
 		
-		let setting = HostFormModel(
-			alias: id,
+		testRoundtrip(with: HostFormModel(
+			alias: app.uid(),
 			hostname: "test.mosquitto.org",
 			topic: "de/rnd7/mqttanalyzer/integration/test/#"
-		)
+		), authType: .none, prot: .mqtt)
+	}
+	
+	func testRoundtripMqttSSL() {
+//		storeNewSetting(setting: HostFormModel (
+//			alias: id,
+//			hostname: "192.168.3.3",
+//			username: "admin",
+//			password: "password"
+//		), authType: .usernamePassword)
 		
-		app.storeNewSetting(setting: setting, authType: .none)
+		testRoundtrip(with: HostFormModel(
+			alias: app.uid(),
+			hostname: "test.mosquitto.org",
+			port: "8883",
+			topic: "de/rnd7/mqttanalyzer/integration/testssl/#",
+			
+			ssl: true,
+			untrustedSSL: true
+		), authType: .none, prot: .mqtt)
+	}
+	
+	func testRoundtripWebsocket() {
+//		XCUIDevice.shared.orientation = .portrait
+		XCUIDevice.shared.orientation = .landscapeLeft
+		
+		testRoundtrip(with: HostFormModel(
+			alias: app.uid(),
+			hostname: "192.168.3.3",
+			port: "9001",
+			topic: "de/rnd7/mqttanalyzer/integration/testws/#"
+		), authType: .none, prot: .websocket)
+	}
+	
+	func testRoundtrip(with config: HostFormModel, authType: HostAuthenticationType, prot: HostProtocol) {
+		app.launch()
+		
+		let identifier = "host.\(config.alias)"
+		XCTAssertFalse(app.app.buttons[identifier].exists)
+
+		app.storeNewSetting(setting: config, authType: authType, prot: prot)
 		
 		_ = app.selectButton(on: app.app, id: identifier)
 		
@@ -49,18 +81,18 @@ class SmokeUITests: XCTestCase {
 		let topicId = app.uid()
 		
 		app.selectTextField(on: app.app, id: "publish.message.topic")
-			.typeText("\(setting.topic.pathUp())/\(topicId)")
+			.typeText("\(config.topic.pathUp())/\(topicId)")
 		
 //		app.selectTextView(id: "message.text")
 //			.pasteText("This is my topic")
 
 		app.app.buttons["Publish"].tap()
 		
-		let topic = app.app.buttons["topic.\(setting.topic.pathUp())/\(topicId)"]
+		let topic = app.app.buttons["topic.\(config.topic.pathUp())/\(topicId)"]
 		_ = topic.waitForExistence(timeout: 5)
 		topic.tap()
 		
-		app.app.buttons[setting.topic].tap()
+		app.app.buttons[config.topic].tap()
 		app.app.buttons["Servers"].tap()
 		app.app.buttons[identifier].press(forDuration: 1)
 		app.app.buttons["Disconnect"].tap()
