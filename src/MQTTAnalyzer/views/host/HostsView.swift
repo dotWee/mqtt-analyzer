@@ -21,6 +21,8 @@ struct HostsView: View {
 	@State var presented = false
 	@State var sheetType: HostsSheetType = .none
 
+	@State var selectedHost: Host?
+	
 	var body: some View {
 		NavigationView {
 			VStack(alignment: .leading) {
@@ -28,9 +30,20 @@ struct HostsView: View {
 					ForEach(hostsModel.hostsSorted) { host in
 						HostCellView(host: host, messageModel: (
 							self.model.getMessageModel(host)
-						))
+							), cloneHostHandler: self.cloneHost)
 					}
 					.onDelete(perform: self.delete)
+					
+				}
+				if hostsModel.hasDeprecated {
+					HStack {
+						Image(systemName: "exclamationmark.triangle.fill")
+						
+						Text("Some of your settings are deprecated and cannot be migrated automatically. Please migrate them from Moscapsule to CocoaMQTT")
+					}
+					.padding()
+					.foregroundColor(.secondary)
+					.font(.footnote)
 				}
 			}
 			.navigationBarItems(
@@ -51,7 +64,8 @@ struct HostsView: View {
 			HostsViewSheetDelegate(model: self.model,
 								   hostsModel: self.hostsModel,
 								   presented: self.$presented,
-								   sheetType: self.$sheetType)
+								   sheetType: self.$sheetType,
+								   selectedHost: self.selectedHost)
 		})
 		
 	}
@@ -62,6 +76,13 @@ struct HostsView: View {
 	
 	func createHost() {
 		sheetType = .createHost
+		selectedHost = nil
+		presented = true
+	}
+	
+	func cloneHost(host: Host) {
+		sheetType = .createHost
+		selectedHost = host
 		presented = true
 	}
 	
@@ -77,17 +98,29 @@ struct HostsViewSheetDelegate: View {
 
 	@Binding var presented: Bool
 	@Binding var sheetType: HostsSheetType
-
+	
+	var selectedHost: Host?
+	
 	var body: some View {
 		Group {
 			if self.sheetType == .createHost {
 				NewHostFormModalView(closeHandler: { self.presented = false },
 									 root: self.model,
-									 hosts: self.hostsModel)
+									 hosts: self.hostsModel,
+									 host: createModel())
 			}
 			else if self.sheetType == .about {
 				AboutView(isPresented: self.$presented)
 			}
+		}
+	}
+	
+	func createModel() -> HostFormModel {
+		if let host = selectedHost {
+			return transformHost(source: host)
+		}
+		else {
+			return HostFormModel()
 		}
 	}
 }

@@ -21,6 +21,8 @@ struct HostCellView: View {
 	@State var sheetPresented = false
 	@State var sheetType = HostCellViewSheetType.edit
 	
+	var cloneHostHandler: (Host) -> Void
+	
 	var connectionColor: Color {
 		host.state == .connected ? .green : .gray
 	}
@@ -29,18 +31,20 @@ struct HostCellView: View {
 		NavigationLink(destination: TopicsView(model: messageModel, host: host, dialogPresented: host.needsAuth)) {
 			HStack {
 				VStack(alignment: .leading) {
-					Text(host.aliasOrHost)
+					HStack {
+						if host.clientImpl == .moscapsule {
+							Image(systemName: "exclamationmark.triangle.fill")
+						}
+						Text(host.aliasOrHost)
+					}
+					
 					Spacer()
 					Group {
 						Text(host.hostname)
-						Text(host.topic)
+						Text(host.subscriptionsReadable)
 					}
 					.font(.footnote)
 					.foregroundColor(.secondary)
-					
-//					if host.clientImpl == .moscapsule {
-//						DeprecationBox()
-//					}
 				}
 				
 				Spacer()
@@ -57,6 +61,7 @@ struct HostCellView: View {
 			}
 			.contextMenu {
 				MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
+				MenuButton(title: "Create new based on this", systemImage: "pencil.circle", action: cloneHost)
 				if host.state != .disconnected {
 					MenuButton(title: "Disconnect", systemImage: "stop.circle", action: disconnect)
 				}
@@ -77,6 +82,10 @@ struct HostCellView: View {
 			}
 		})
 		.accessibility(identifier: "host.\(host.alias)")
+	}
+	
+	func cloneHost() {
+		cloneHostHandler(host)
 	}
 	
 	func editHost() {

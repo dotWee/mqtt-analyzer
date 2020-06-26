@@ -9,6 +9,52 @@
 import Foundation
 import SwiftUI
 
+enum CertificateLocation: Int, Codable {
+	case cloud = 0
+	case local = 1
+}
+
+enum CertificateFileType: Int, Codable {
+	case p12 = 0
+	case serverCA = 1
+	case client = 2
+	case clientKey = 3
+	case undefined = 4
+}
+
+extension CertificateFileType {
+	func getName() -> String {
+		switch self {
+		case .p12:
+			return "Client PKCS#12"
+		case .serverCA:
+			return "Server CA"
+		case .client:
+			return "Client Certificate"
+		case .clientKey:
+			return "Client Key"
+		case .undefined:
+			return "Undefined"
+		}
+	}
+}
+
+enum HostAuthenticationType {
+	case none
+	case usernamePassword
+	case certificate
+}
+
+enum HostProtocol {
+	case mqtt
+	case websocket
+}
+
+enum HostClientImplType {
+	case moscapsule
+	case cocoamqtt
+}
+
 extension Host: Hashable {
 	static func == (lhs: Host, rhs: Host) -> Bool {
 		return lhs.ID == rhs.ID
@@ -17,6 +63,17 @@ extension Host: Hashable {
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(self.ID)
 	}
+}
+
+struct TopicSubscription: Codable {
+	var topic: String
+	var qos: Int
+}
+
+struct CertificateFile: Codable {
+	let name: String
+	let location: CertificateLocation
+	var type = CertificateFileType.undefined
 }
 
 class Host: Identifiable, ObservableObject {
@@ -28,7 +85,10 @@ class Host: Identifiable, ObservableObject {
 	var alias: String = ""
 	var hostname: String = ""
 	var port: UInt16 = 1883
-	var topic: String = "#"
+	var subscriptions: [TopicSubscription] = [TopicSubscription(topic: "#", qos: 0)]
+	var subscriptionsReadable: String {
+		return subscriptions.map { $0.topic }.joined(separator: ", ")
+	}
 	
 	var protocolMethod: HostProtocol = .mqtt
 	var clientImpl: HostClientImplType = .cocoamqtt
@@ -60,9 +120,7 @@ class Host: Identifiable, ObservableObject {
 	var username: String = ""
 	var password: String = ""
 	
-	var certServerCA: String = ""
-	var certClient: String = ""
-	var certClientKey: String = ""
+	var certificates: [CertificateFile] = []
 	var certClientKeyPassword: String = ""
 	
 	@Published var usernameNonpersistent: String?
@@ -126,6 +184,10 @@ class HostsModel: ObservableObject {
 				return $0.aliasOrHost < $1.aliasOrHost
 			}
 		}
+	}
+	
+	var hasDeprecated: Bool {
+		return self.hosts.filter { $0.clientImpl == .moscapsule }.first != nil
 	}
 	
 	init(hosts: [Host] = [], initMethod: InitHost) {
